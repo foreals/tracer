@@ -1,0 +1,24 @@
+<p id ="notice"><%= notice %></p>
+
+<h1>Close Contacts</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <% @close_contact.each do |close_contact| %>
+            <tr>
+                <td><%= close_contact.name %></td>
+                <td><%= link_to 'Destroy', close_contact, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Submit New Close Contact', "/close_contacts/new" %>

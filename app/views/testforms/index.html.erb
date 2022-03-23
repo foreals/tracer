@@ -1,0 +1,27 @@
+<p id ="notice"><%= notice %></p>
+
+<h1>Testform</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Result</th>
+            <th colspan="3"></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <% @testform.each do |testform| %>
+            <tr>
+                <td><%= testform.date %></td>
+                <td><%= testform.RESULT %></td>
+                <td><%= link_to 'Show', testform %></td> 
+            </tr>
+        <% end %>
+    </tbody>
+</table>
+
+<br>
+
+<li><%= link_to 'Submit New Test Result', "/testforms/new" %></li>

@@ -1,0 +1,20 @@
+<%= form_with(model: close_contact, local: true) do |form| %>
+    <% if close_contact.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(close_contact.errors.count, "error") %> prohibited this close contact from being saved:</h2>
+  
+        <ul>
+          <% close_contact.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  
+    <div class="field">
+      <%= form.label :name %>
+      <%= form.text_field :name %>
+    </div>
+
+    <%= form.submit %>
+<% end %>

@@ -1,0 +1,531 @@
+  [1m[35m (3.7ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "testforms"[0m
+  [1m[35m (28.8ms)[0m  [1m[35mCREATE TABLE "testforms" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "date" varchar, "RESULT" varchar, "user_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (12.5ms)[0m  [1m[35mCREATE  INDEX "index_testforms_on_user_id" ON "testforms" ("user_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "users"[0m
+  [1m[35m (12.6ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "cellphone" varchar, "last_name" varchar, "first_name" varchar, "email" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "password_digest" varchar, "username" varchar, "admin" boolean DEFAULT 0)[0m
+  [1m[35m (12.1ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_cellphone" ON "users" ("cellphone")[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TEMPORARY TABLE "atestforms" ("id" integer NOT NULL PRIMARY KEY, "date" varchar DEFAULT NULL, "RESULT" varchar DEFAULT NULL, "user_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "tindex_atestforms_on_user_id" ON "atestforms" ("user_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "atestforms" ("id","date","RESULT","user_id","created_at","updated_at")
+                     SELECT "id","date","RESULT","user_id","created_at","updated_at" FROM "testforms"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE "testforms"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "testforms" ("id" integer NOT NULL PRIMARY KEY, "date" varchar DEFAULT NULL, "RESULT" varchar DEFAULT NULL, "user_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_f97265db11"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_testforms_on_user_id" ON "testforms" ("user_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "testforms" ("id","date","RESULT","user_id","created_at","updated_at")
+                     SELECT "id","date","RESULT","user_id","created_at","updated_at" FROM "atestforms"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "atestforms"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (13.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (15.4ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (14.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20201023194319)[0m
+  [1m[35m (14.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20200928191812),
+(20201017195053),
+(20201018194233),
+(20201019192807);
+
+[0m
+  [1m[35m (24.3ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (2.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "test"], ["created_at", "2020-11-13 20:47:54.815218"], ["updated_at", "2020-11-13 20:47:54.815218"]]
+  [1m[35m (17.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "schema_sha1"], ["value", "d50d39ec47c0fbb7b324e4df5a67c4e125fae723"], ["created_at", "2020-11-13 20:47:54.840744"], ["updated_at", "2020-11-13 20:47:54.840744"]]
+  [1m[35m (15.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (2.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+Started GET "/users/new" for 127.0.0.1 at 2020-11-13 14:47:54 -0600
+Processing by UsersController#new as HTML
+  Rendering users/new.html.erb within layouts/application
+  Rendered users/_form.html.erb (Duration: 21.4ms | Allocations: 6046)
+  Rendered users/new.html.erb within layouts/application (Duration: 24.4ms | Allocations: 6668)
+[Webpacker] Compiling...
+[Webpacker] Compilation failed:
+yarn run v1.22.5
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+
+
+error Command "webpack" not found.
+
+Completed 500 Internal Server Error in 1094ms (ActiveRecord: 0.7ms | Allocations: 35464)
+  [1m[35m (0.2ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+Started GET "/users/new" for 127.0.0.1 at 2020-11-13 14:47:56 -0600
+Processing by UsersController#new as HTML
+  Rendering users/new.html.erb within layouts/application
+  Rendered users/_form.html.erb (Duration: 3.3ms | Allocations: 1451)
+  Rendered users/new.html.erb within layouts/application (Duration: 3.7ms | Allocations: 1524)
+[Webpacker] Compiling...
+[Webpacker] Compilation failed:
+yarn run v1.22.5
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+
+
+error Command "webpack" not found.
+
+Completed 500 Internal Server Error in 925ms (ActiveRecord: 0.0ms | Allocations: 4491)
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER(?) LIMIT ?[0m  [["username", "The_Doctor1"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("cellphone", "last_name", "first_name", "email", "created_at", "updated_at", "password_digest", "username") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["cellphone", "1"], ["last_name", "Doe"], ["first_name", "Rodney"], ["email", "jd1@evansville.edu"], ["created_at", "2020-11-13 20:47:57.080564"], ["updated_at", "2020-11-13 20:47:57.080564"], ["password_digest", "$2a$04$g/zKOkfL5e6TeZ3Ta9zk3.etHUO.Q2CCiR6EVLR3NgGFPRVLQtXMe"], ["username", "The_Doctor1"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTestform Create (0.3ms)[0m  [1m[32mINSERT INTO "testforms" ("date", "RESULT", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["date", "1/1/2020"], ["RESULT", "P"], ["user_id", 1], ["created_at", "2020-11-13 20:47:57.127905"], ["updated_at", "2020-11-13 20:47:57.127905"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER(?) LIMIT ?[0m  [["username", "The_Doctor4"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("cellphone", "last_name", "first_name", "email", "created_at", "updated_at", "password_digest", "username") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["cellphone", "4"], ["last_name", "Doe"], ["first_name", "Rodney"], ["email", "jd1@evansville.edu"], ["created_at", "2020-11-13 20:47:57.165342"], ["updated_at", "2020-11-13 20:47:57.165342"], ["password_digest", "$2a$04$fCQetSZtpF4f4HTPRqd/hOOGSavNtelA5.oldGfTxlNSW.kOoLwEu"], ["username", "The_Doctor4"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER(?) AND "users"."id" != ? LIMIT ?[0m  [["username", "The_Doctor4"], ["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER(?) LIMIT ?[0m  [["username", "The_Doctor5"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER(?) LIMIT ?[0m  [["username", "The_Doctor6"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER(?) LIMIT ?[0m  [["username", "The_Doctor7"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER(?) LIMIT ?[0m  [["username", "The_Doctor8"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER(?) LIMIT ?[0m  [["username", "The_Doctor9"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER(?) LIMIT ?[0m  [["username", "The_Doctor10"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("cellphone", "last_name", "first_name", "email", "created_at", "updated_at", "password_digest", "username") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["cellphone", "10"], ["last_name", "Doe"], ["first_name", "Rodney"], ["email", "jd1@evansville.edu"], ["created_at", "2020-11-13 20:47:57.214074"], ["updated_at", "2020-11-13 20:47:57.214074"], ["password_digest", "$2a$04$DCQORwraVdJUbwwfsGBXouh5/f4gGmYSVSxAVbmY/O2bopsD2T8ki"], ["username", "The_Doctor10"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER(?) LIMIT ?[0m  [["username", "The_Doctor11"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("cellphone", "last_name", "first_name", "email", "created_at", "updated_at", "password_digest", "username", "admin") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["cellphone", "11"], ["last_name", "Doe"], ["first_name", "Rodney"], ["email", "jd1@evansville.edu"], ["created_at", "2020-11-13 20:47:57.218680"], ["updated_at", "2020-11-13 20:47:57.218680"], ["password_digest", "$2a$04$W.pRzZJ7m34Mw9zEsfPyye0RAiYttADSPfdOVlzz2nJCd8hWyr69G"], ["username", "The_Doctor11"], ["admin", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+Started GET "/sessions/new" for 127.0.0.1 at 2020-11-13 14:47:57 -0600
+Processing by SessionsController#new as HTML
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (Duration: 0.6ms | Allocations: 407)
+[Webpacker] Compiling...
+[Webpacker] Compilation failed:
+yarn run v1.22.5
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+
+
+error Command "webpack" not found.
+
+Completed 500 Internal Server Error in 928ms (ActiveRecord: 0.0ms | Allocations: 3968)
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER(?) LIMIT ?[0m  [["username", "The_Doctor12"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("cellphone", "last_name", "first_name", "email", "created_at", "updated_at", "password_digest", "username") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["cellphone", "12"], ["last_name", "Doe"], ["first_name", "Rodney"], ["email", "jd1@evansville.edu"], ["created_at", "2020-11-13 20:47:58.158923"], ["updated_at", "2020-11-13 20:47:58.158923"], ["password_digest", "$2a$04$h1xmjFXhgWThekc6EoJDkeOMsMGT2y9vtSHnz4B.X4E5Gfx0zIOgu"], ["username", "The_Doctor12"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/sessions/create" for 127.0.0.1 at 2020-11-13 14:47:58 -0600
+Processing by SessionsController#create as HTML
+  Parameters: {"session"=>{"id"=>"1", "cellphone"=>"12", "last_name"=>"Doe", "first_name"=>"Rodney", "email"=>"jd1@evansville.edu", "created_at"=>"2020-11-13 20:47:58 UTC", "updated_at"=>"2020-11-13 20:47:58 UTC", "password_digest"=>"[FILTERED]", "username"=>"The_Doctor12", "admin"=>"false"}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Redirected to http://www.example.com/login
+Completed 302 Found in 3ms (ActiveRecord: 0.3ms | Allocations: 427)
+  [1m[35m (0.3ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+Started GET "/welcome" for 127.0.0.1 at 2020-11-13 14:47:58 -0600
+Processing by SessionsController#welcome as HTML
+  Rendering sessions/welcome.html.erb within layouts/application
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  Rendered sessions/welcome.html.erb within layouts/application (Duration: 9.7ms | Allocations: 709)
+[Webpacker] Compiling...
+[Webpacker] Compilation failed:
+yarn run v1.22.5
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+
+
+error Command "webpack" not found.
+
+Completed 500 Internal Server Error in 962ms (ActiveRecord: 0.3ms | Allocations: 3785)
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER(?) LIMIT ?[0m  [["username", "The_Doctor13"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("cellphone", "last_name", "first_name", "email", "created_at", "updated_at", "password_digest", "username") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["cellphone", "13"], ["last_name", "Doe"], ["first_name", "Rodney"], ["email", "jd1@evansville.edu"], ["created_at", "2020-11-13 20:47:59.193201"], ["updated_at", "2020-11-13 20:47:59.193201"], ["password_digest", "$2a$04$TdrA8I3/e1XhsdEq6/pSAuszcAxv10IzG1MPXlIY8dv6BMd7qVRuO"], ["username", "The_Doctor13"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/login" for 127.0.0.1 at 2020-11-13 14:47:59 -0600
+Processing by SessionsController#create as HTML
+  Parameters: {"username"=>"The_Doctor13", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = ? LIMIT ?[0m  [["username", "The_Doctor13"], ["LIMIT", 1]]
+Redirected to http://www.example.com/welcome
+Completed 302 Found in 3ms (ActiveRecord: 0.1ms | Allocations: 473)
+Started GET "/users" for 127.0.0.1 at 2020-11-13 14:47:59 -0600
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  Rendered users/index.html.erb within layouts/application (Duration: 6.0ms | Allocations: 611)
+[Webpacker] Compiling...
+[Webpacker] Compilation failed:
+yarn run v1.22.5
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+
+
+error Command "webpack" not found.
+
+Completed 500 Internal Server Error in 939ms (ActiveRecord: 0.3ms | Allocations: 4033)
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER(?) LIMIT ?[0m  [["username", "The_Doctor14"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("cellphone", "last_name", "first_name", "email", "created_at", "updated_at", "password_digest", "username") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["cellphone", "14"], ["last_name", "Doe"], ["first_name", "Rodney"], ["email", "jd1@evansville.edu"], ["created_at", "2020-11-13 20:48:00.146213"], ["updated_at", "2020-11-13 20:48:00.146213"], ["password_digest", "$2a$04$gVV08/QLkIvFOVfdIoRH/O.NDo9kQT1CSjZoHZmawzBG2hLQKFPeK"], ["username", "The_Doctor14"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/login" for 127.0.0.1 at 2020-11-13 14:48:00 -0600
+Processing by SessionsController#create as HTML
+  Parameters: {"username"=>"The_Doctor14", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = ? LIMIT ?[0m  [["username", "The_Doctor14"], ["LIMIT", 1]]
+Redirected to http://www.example.com/welcome
+Completed 302 Found in 3ms (ActiveRecord: 0.1ms | Allocations: 324)
+Started GET "/users/1" for 127.0.0.1 at 2020-11-13 14:48:00 -0600
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering users/show.html.erb within layouts/application
+  Rendered users/show.html.erb within layouts/application (Duration: 0.8ms | Allocations: 307)
+[Webpacker] Compiling...
+[Webpacker] Compilation failed:
+yarn run v1.22.5
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+
+
+error Command "webpack" not found.
+
+Completed 500 Internal Server Error in 1019ms (ActiveRecord: 0.2ms | Allocations: 3799)
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER(?) LIMIT ?[0m  [["username", "The_Doctor15"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("cellphone", "last_name", "first_name", "email", "created_at", "updated_at", "password_digest", "username") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["cellphone", "15"], ["last_name", "Doe"], ["first_name", "Rodney"], ["email", "jd1@evansville.edu"], ["created_at", "2020-11-13 20:48:01.188283"], ["updated_at", "2020-11-13 20:48:01.188283"], ["password_digest", "$2a$04$kW3E5lskz.6a11XlnsmyQOLV4OE6FGKR0K6Vry4qb7QgvCufISShm"], ["username", "The_Doctor15"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/login" for 127.0.0.1 at 2020-11-13 14:48:01 -0600
+Processing by SessionsController#create as HTML
+  Parameters: {"username"=>"The_Doctor15", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = ? LIMIT ?[0m  [["username", "The_Doctor15"], ["LIMIT", 1]]
+Redirected to http://www.example.com/welcome
+Completed 302 Found in 3ms (ActiveRecord: 0.1ms | Allocations: 324)
+Started GET "/users/new" for 127.0.0.1 at 2020-11-13 14:48:01 -0600
+Processing by UsersController#new as HTML
+  Rendering users/new.html.erb within layouts/application
+  Rendered users/_form.html.erb (Duration: 1.9ms | Allocations: 1442)
+  Rendered users/new.html.erb within layouts/application (Duration: 2.1ms | Allocations: 1514)
+[Webpacker] Compiling...
+[Webpacker] Compilation failed:
+yarn run v1.22.5
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+
+
+error Command "webpack" not found.
+
+Completed 500 Internal Server Error in 936ms (ActiveRecord: 0.0ms | Allocations: 4554)
+  [1m[35m (0.2ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER(?) LIMIT ?[0m  [["username", "The_Doctor16"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("cellphone", "last_name", "first_name", "email", "created_at", "updated_at", "password_digest", "username") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["cellphone", "16"], ["last_name", "Doe"], ["first_name", "Rodney"], ["email", "jd1@evansville.edu"], ["created_at", "2020-11-13 20:48:02.138921"], ["updated_at", "2020-11-13 20:48:02.138921"], ["password_digest", "$2a$04$05aE2EGNdIsnsjZ7NjaTxeuW2QYuf/HRRAvOe.aaf0W1Ray9ZLbPq"], ["username", "The_Doctor16"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/login" for 127.0.0.1 at 2020-11-13 14:48:02 -0600
+Processing by SessionsController#create as HTML
+  Parameters: {"username"=>"The_Doctor16", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = ? LIMIT ?[0m  [["username", "The_Doctor16"], ["LIMIT", 1]]
+Redirected to http://www.example.com/welcome
+Completed 302 Found in 7ms (ActiveRecord: 0.2ms | Allocations: 324)
+Started GET "/users/1/edit" for 127.0.0.1 at 2020-11-13 14:48:02 -0600
+Processing by UsersController#edit as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering users/edit.html.erb within layouts/application
+  Rendered users/_form.html.erb (Duration: 2.7ms | Allocations: 1538)
+  Rendered users/edit.html.erb within layouts/application (Duration: 5.3ms | Allocations: 1782)
+[Webpacker] Compiling...
+[Webpacker] Compilation failed:
+yarn run v1.22.5
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+
+
+error Command "webpack" not found.
+
+Completed 500 Internal Server Error in 945ms (ActiveRecord: 0.2ms | Allocations: 5165)
+  [1m[35m (0.2ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER(?) LIMIT ?[0m  [["username", "The_Doctor17"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("cellphone", "last_name", "first_name", "email", "created_at", "updated_at", "password_digest", "username") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["cellphone", "17"], ["last_name", "Doe"], ["first_name", "Rodney"], ["email", "jd1@evansville.edu"], ["created_at", "2020-11-13 20:48:03.103144"], ["updated_at", "2020-11-13 20:48:03.103144"], ["password_digest", "$2a$04$hh/jgRsYBwaqKBqaFLBj4.ieyn.atuJZsSnIO2yQSDA17lorYZbwS"], ["username", "The_Doctor17"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/login" for 127.0.0.1 at 2020-11-13 14:48:03 -0600
+Processing by SessionsController#create as HTML
+  Parameters: {"username"=>"The_Doctor17", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = ? LIMIT ?[0m  [["username", "The_Doctor17"], ["LIMIT", 1]]
+Redirected to http://www.example.com/welcome
+Completed 302 Found in 3ms (ActiveRecord: 0.1ms | Allocations: 324)
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "users"[0m
+Started POST "/users" for 127.0.0.1 at 2020-11-13 14:48:03 -0600
+Processing by UsersController#create as HTML
+  Parameters: {"user"=>{"cellphone"=>"18", "first_name"=>"Rodney", "last_name"=>"Doe", "email"=>"jd1@evansville.edu", "username"=>"The_Doctor18", "password"=>"[FILTERED]", "admin"=>"false"}}
+[31mUnpermitted parameter: :admin[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER(?) LIMIT ?[0m  [["username", "The_Doctor18"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("cellphone", "last_name", "first_name", "email", "created_at", "updated_at", "password_digest", "username") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["cellphone", "18"], ["last_name", "Doe"], ["first_name", "Rodney"], ["email", "jd1@evansville.edu"], ["created_at", "2020-11-13 20:48:03.155649"], ["updated_at", "2020-11-13 20:48:03.155649"], ["password_digest", "$2a$04$6G5uAY/arOMcGRo0JBPslOV7TjqOE5LL0PxAK7pxPvgpJPHCloaPy"], ["username", "The_Doctor18"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/welcome
+Completed 302 Found in 7ms (ActiveRecord: 0.5ms | Allocations: 1212)
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "users"[0m
+  [1m[35m (0.2ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER(?) LIMIT ?[0m  [["username", "The_Doctor19"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("cellphone", "last_name", "first_name", "email", "created_at", "updated_at", "password_digest", "username") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["cellphone", "19"], ["last_name", "Doe"], ["first_name", "Rodney"], ["email", "jd1@evansville.edu"], ["created_at", "2020-11-13 20:48:03.167709"], ["updated_at", "2020-11-13 20:48:03.167709"], ["password_digest", "$2a$04$qb2fC1jHFJmBMWgtrF.VreY/5ZxKk3y20zmRPM8df1WqYQXqfjSvi"], ["username", "The_Doctor19"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/login" for 127.0.0.1 at 2020-11-13 14:48:03 -0600
+Processing by SessionsController#create as HTML
+  Parameters: {"username"=>"The_Doctor19", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = ? LIMIT ?[0m  [["username", "The_Doctor19"], ["LIMIT", 1]]
+Redirected to http://www.example.com/welcome
+Completed 302 Found in 3ms (ActiveRecord: 0.2ms | Allocations: 324)
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "users"[0m
+Started POST "/users" for 127.0.0.1 at 2020-11-13 14:48:03 -0600
+Processing by UsersController#create as HTML
+  Parameters: {"user"=>{"cellphone"=>nil, "first_name"=>"Rodney", "last_name"=>"Doe", "email"=>"jd1@evansville.edu", "username"=>"The_Doctor20", "password"=>"[FILTERED]", "admin"=>"false"}}
+[31mUnpermitted parameter: :admin[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER(?) LIMIT ?[0m  [["username", "The_Doctor20"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  Rendering users/new.html.erb within layouts/application
+  Rendered users/_form.html.erb (Duration: 2.4ms | Allocations: 1631)
+  Rendered users/new.html.erb within layouts/application (Duration: 3.0ms | Allocations: 1703)
+[Webpacker] Compiling...
+[Webpacker] Compilation failed:
+yarn run v1.22.5
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+
+
+error Command "webpack" not found.
+
+Completed 500 Internal Server Error in 940ms (ActiveRecord: 0.3ms | Allocations: 5806)
+  [1m[35m (0.2ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER(?) LIMIT ?[0m  [["username", "The_Doctor21"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("cellphone", "last_name", "first_name", "email", "created_at", "updated_at", "password_digest", "username") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["cellphone", "20"], ["last_name", "Doe"], ["first_name", "Rodney"], ["email", "jd1@evansville.edu"], ["created_at", "2020-11-13 20:48:04.136569"], ["updated_at", "2020-11-13 20:48:04.136569"], ["password_digest", "$2a$04$5Uh1hm1pjF3OSJnmiWR9buGQyo7/BS1MWdprm.r6UlVw2NcR6aCvy"], ["username", "The_Doctor21"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/login" for 127.0.0.1 at 2020-11-13 14:48:04 -0600
+Processing by SessionsController#create as HTML
+  Parameters: {"username"=>"The_Doctor21", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = ? LIMIT ?[0m  [["username", "The_Doctor21"], ["LIMIT", 1]]
+Redirected to http://www.example.com/welcome
+Completed 302 Found in 2ms (ActiveRecord: 0.1ms | Allocations: 324)
+Started POST "/users" for 127.0.0.1 at 2020-11-13 14:48:04 -0600
+Processing by UsersController#create as HTML
+  Parameters: {"user"=>{"cellphone"=>nil, "first_name"=>"Rodney", "last_name"=>"Doe", "email"=>"jd1@evansville.edu", "username"=>"The_Doctor22", "password"=>"[FILTERED]", "admin"=>"false"}}
+[31mUnpermitted parameter: :admin[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER(?) LIMIT ?[0m  [["username", "The_Doctor22"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  Rendering users/new.html.erb within layouts/application
+  Rendered users/_form.html.erb (Duration: 5.1ms | Allocations: 1616)
+  Rendered users/new.html.erb within layouts/application (Duration: 5.3ms | Allocations: 1688)
+[Webpacker] Compiling...
+[Webpacker] Compilation failed:
+yarn run v1.22.5
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+
+
+error Command "webpack" not found.
+
+Completed 500 Internal Server Error in 925ms (ActiveRecord: 0.3ms | Allocations: 5767)
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER(?) LIMIT ?[0m  [["username", "The_Doctor23"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("cellphone", "last_name", "first_name", "email", "created_at", "updated_at", "password_digest", "username") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["cellphone", "21"], ["last_name", "Doe"], ["first_name", "Rodney"], ["email", "jd1@evansville.edu"], ["created_at", "2020-11-13 20:48:05.080081"], ["updated_at", "2020-11-13 20:48:05.080081"], ["password_digest", "$2a$04$WpliAjXaVwvfdZOmCAmdheIrtDEg24ptDDyKBKEUt/euFsX0RfyK2"], ["username", "The_Doctor23"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/login" for 127.0.0.1 at 2020-11-13 14:48:05 -0600
+Processing by SessionsController#create as HTML
+  Parameters: {"username"=>"The_Doctor23", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = ? LIMIT ?[0m  [["username", "The_Doctor23"], ["LIMIT", 1]]
+Redirected to http://www.example.com/welcome
+Completed 302 Found in 8ms (ActiveRecord: 0.1ms | Allocations: 324)
+Started PATCH "/users/1" for 127.0.0.1 at 2020-11-13 14:48:05 -0600
+Processing by UsersController#update as HTML
+  Parameters: {"user"=>{"first_name"=>"Newguy"}, "id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER(?) AND "users"."id" != ? LIMIT ?[0m  [["username", "The_Doctor23"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Update (1.1ms)[0m  [1m[33mUPDATE "users" SET "first_name" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["first_name", "Newguy"], ["updated_at", "2020-11-13 20:48:05.098917"], ["id", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/users/1
+Completed 302 Found in 5ms (ActiveRecord: 1.5ms | Allocations: 1408)
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER(?) LIMIT ?[0m  [["username", "The_Doctor24"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("cellphone", "last_name", "first_name", "email", "created_at", "updated_at", "password_digest", "username") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["cellphone", "22"], ["last_name", "Doe"], ["first_name", "Rodney"], ["email", "jd1@evansville.edu"], ["created_at", "2020-11-13 20:48:05.122718"], ["updated_at", "2020-11-13 20:48:05.122718"], ["password_digest", "$2a$04$IZCjpE3qJjEYFVz/OIfq.OfeZvyMyJlPL8ofj6un0Dk4d.D48W2SK"], ["username", "The_Doctor24"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/login" for 127.0.0.1 at 2020-11-13 14:48:05 -0600
+Processing by SessionsController#create as HTML
+  Parameters: {"username"=>"The_Doctor24", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = ? LIMIT ?[0m  [["username", "The_Doctor24"], ["LIMIT", 1]]
+Redirected to http://www.example.com/welcome
+Completed 302 Found in 5ms (ActiveRecord: 0.1ms | Allocations: 324)
+Started PATCH "/users/1" for 127.0.0.1 at 2020-11-13 14:48:05 -0600
+Processing by UsersController#update as HTML
+  Parameters: {"user"=>{"first_name"=>"Newguy"}, "id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER(?) AND "users"."id" != ? LIMIT ?[0m  [["username", "The_Doctor24"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Update (1.3ms)[0m  [1m[33mUPDATE "users" SET "first_name" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["first_name", "Newguy"], ["updated_at", "2020-11-13 20:48:05.173140"], ["id", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/users/1
+Completed 302 Found in 11ms (ActiveRecord: 2.0ms | Allocations: 1332)
+  [1m[36mUser Load (1.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER(?) LIMIT ?[0m  [["username", "The_Doctor25"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("cellphone", "last_name", "first_name", "email", "created_at", "updated_at", "password_digest", "username") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["cellphone", "23"], ["last_name", "Doe"], ["first_name", "Rodney"], ["email", "jd1@evansville.edu"], ["created_at", "2020-11-13 20:48:05.190679"], ["updated_at", "2020-11-13 20:48:05.190679"], ["password_digest", "$2a$04$3MOVkAUD16Wl9OoKvf.8Tu0pqzsOtllkZuviM5KZ6eSWBQe9xfHAm"], ["username", "The_Doctor25"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/login" for 127.0.0.1 at 2020-11-13 14:48:05 -0600
+Processing by SessionsController#create as HTML
+  Parameters: {"username"=>"The_Doctor25", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = ? LIMIT ?[0m  [["username", "The_Doctor25"], ["LIMIT", 1]]
+Redirected to http://www.example.com/welcome
+Completed 302 Found in 8ms (ActiveRecord: 0.1ms | Allocations: 324)
+Started PATCH "/users/1" for 127.0.0.1 at 2020-11-13 14:48:05 -0600
+Processing by UsersController#update as HTML
+  Parameters: {"user"=>{"cellphone"=>nil}, "id"=>"1"}
+  [1m[36mUser Load (3.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER(?) AND "users"."id" != ? LIMIT ?[0m  [["username", "The_Doctor25"], ["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  Rendering users/edit.html.erb within layouts/application
+  Rendered users/_form.html.erb (Duration: 10.4ms | Allocations: 1661)
+  Rendered users/edit.html.erb within layouts/application (Duration: 10.8ms | Allocations: 1763)
+[Webpacker] Compiling...
+[Webpacker] Compilation failed:
+yarn run v1.22.5
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+
+
+error Command "webpack" not found.
+
+Completed 500 Internal Server Error in 964ms (ActiveRecord: 3.5ms | Allocations: 5992)
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER(?) LIMIT ?[0m  [["username", "The_Doctor26"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("cellphone", "last_name", "first_name", "email", "created_at", "updated_at", "password_digest", "username") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["cellphone", "24"], ["last_name", "Doe"], ["first_name", "Rodney"], ["email", "jd1@evansville.edu"], ["created_at", "2020-11-13 20:48:06.181532"], ["updated_at", "2020-11-13 20:48:06.181532"], ["password_digest", "$2a$04$0yM3kX/hATsxNHQ8gZAXVOW5Droqv.jZEXrD6mm7DI/gw28fGh.dW"], ["username", "The_Doctor26"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/login" for 127.0.0.1 at 2020-11-13 14:48:06 -0600
+Processing by SessionsController#create as HTML
+  Parameters: {"username"=>"The_Doctor26", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = ? LIMIT ?[0m  [["username", "The_Doctor26"], ["LIMIT", 1]]
+Redirected to http://www.example.com/welcome
+Completed 302 Found in 3ms (ActiveRecord: 0.1ms | Allocations: 324)
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "users"[0m
+Started DELETE "/users/1" for 127.0.0.1 at 2020-11-13 14:48:06 -0600
+Processing by UsersController#destroy as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Destroy (0.1ms)[0m  [1m[31mDELETE FROM "users" WHERE "users"."id" = ?[0m  [["id", 1]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/users
+Completed 302 Found in 3ms (ActiveRecord: 0.3ms | Allocations: 771)
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "users"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (1.5ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (1.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER(?) LIMIT ?[0m  [["username", "MyString"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("cellphone", "last_name", "first_name", "email", "created_at", "updated_at", "password_digest", "username") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["cellphone", "MyString"], ["last_name", "MyString"], ["first_name", "MyString"], ["email", "MyString"], ["created_at", "2020-11-13 20:48:06.232742"], ["updated_at", "2020-11-13 20:48:06.232742"], ["password_digest", "MyString"], ["username", "MyString"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  Rendering users/edit.html.erb
+  Rendered users/_form.html.erb (Duration: 9.4ms | Allocations: 1498)
+  Rendered users/edit.html.erb (Duration: 11.2ms | Allocations: 2143)
+  [1m[35m (0.2ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER(?) LIMIT ?[0m  [["username", "Username"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("cellphone", "last_name", "first_name", "email", "created_at", "updated_at", "password_digest", "username") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["cellphone", "Cellphone"], ["last_name", "Last Name"], ["first_name", "First Name"], ["email", "Email"], ["created_at", "2020-11-13 20:48:06.256697"], ["updated_at", "2020-11-13 20:48:06.256697"], ["password_digest", "Password"], ["username", "Username"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER(?) LIMIT ?[0m  [["username", "Username1"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("cellphone", "last_name", "first_name", "email", "created_at", "updated_at", "password_digest", "username") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["cellphone", "Cellphone1"], ["last_name", "Last Name"], ["first_name", "First Name"], ["email", "Email"], ["created_at", "2020-11-13 20:48:06.260223"], ["updated_at", "2020-11-13 20:48:06.260223"], ["password_digest", "Password1"], ["username", "Username1"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  Rendering users/index.html.erb
+  Rendered users/index.html.erb (Duration: 1.4ms | Allocations: 267)
+  [1m[35m (0.2ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  Rendering users/new.html.erb
+  Rendered users/_form.html.erb (Duration: 7.2ms | Allocations: 1472)
+  Rendered users/new.html.erb (Duration: 7.6ms | Allocations: 1553)
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER(?) LIMIT ?[0m  [["username", "Username"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("cellphone", "last_name", "first_name", "email", "created_at", "updated_at", "password_digest", "username") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["cellphone", "Cellphone"], ["last_name", "Last Name"], ["first_name", "First Name"], ["email", "Email"], ["created_at", "2020-11-13 20:48:06.293568"], ["updated_at", "2020-11-13 20:48:06.293568"], ["password_digest", "Password"], ["username", "Username"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  Rendering users/show.html.erb
+  Rendered users/show.html.erb (Duration: 0.4ms | Allocations: 73)
+  [1m[35m (0.2ms)[0m  [1m[31mrollback transaction[0m
